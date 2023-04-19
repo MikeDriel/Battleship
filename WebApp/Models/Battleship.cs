@@ -30,7 +30,7 @@ namespace WebApp.Models
             InitializeBoards();
         }
 
-        private void InitializeBoards()
+        public void InitializeBoards()
         {
             // Initialize the boards and ships for both players
             (Board1, Ships1) = GenerateInitialBoard();
@@ -73,6 +73,7 @@ namespace WebApp.Models
 
                     bool canPlace = true;
 
+                    //Check if boats cent be placed horizontally or vertically
                     for (int i = 0; i < shipSize; i++)
                     {
                         int currentCol = orientation == "horizontal" ? col + i : col;
@@ -104,6 +105,7 @@ namespace WebApp.Models
             return (board, ships);
         }
 
+        //Checks if the cells of the ship dont't have another ship cell next to it
         private bool IsCellEmptyAndNotAdjacentToShips(int[][] board, int row, int col)
         {
             if (row < 0 || col < 0 || row >= board.Length || col >= board[row].Length || board[row][col] != 0)
@@ -133,6 +135,7 @@ namespace WebApp.Models
             return true;
         }
 
+        //Shoot logic
         public MoveStates Shoot(Player shooter, int row, int col)
         {
             const int EmptyCell = 0;
@@ -171,6 +174,7 @@ namespace WebApp.Models
             return MoveStates.Illegal;
         }
 
+        //Game/shoot states
         public enum MoveStates
         {
             Hit,
@@ -295,12 +299,12 @@ namespace WebApp.Models
     {
         private List<Player> _players = new List<Player>();
 
-        public void AddPlayer(Player player)
+        public virtual void AddPlayer(Player player)
         {
             _players.Add(player);
         }
 
-        public Player GetPlayer(string connectionId)
+        public virtual Player GetPlayer(string connectionId)
         {
             return _players.FirstOrDefault(p => p.ConnectionId == connectionId);
         }
@@ -361,7 +365,7 @@ namespace WebApp.Models
         public int Length { get; }
         public string Orientation { get; set; }
         public (int row, int col) Position { get; set; }
-        public int Hits { get; private set; }
+        public int Hits { get; set; }
 
         public Ship(string type, int length, string orientation, (int row, int col) position)
         {
