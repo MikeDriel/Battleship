@@ -330,22 +330,22 @@ namespace WebApp.Models
         private List<Game> _games = new List<Game>();
         private static Random _random = new Random();
 
-        public Game GetGame(string gameId)
+        public virtual Game GetGame(string gameId)
         {
             return _games.FirstOrDefault(g => g.GameId == gameId);
         }
 
-        public void AddGame(Game game)
+        public virtual void AddGame(Game game)
         {
             _games.Add(game);
         }
 
-        public void RemoveGame(Game game)
+        public virtual void RemoveGame(Game game)
         {
             _games.Remove(game);
         }
 
-        public string GenerateRandomString(int length)
+        public virtual string GenerateRandomString(int length)
         {
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
             StringBuilder result = new StringBuilder(length);
