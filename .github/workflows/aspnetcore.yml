@@ -3,7 +3,7 @@ name: ASP.NET Core CI/CD
 on:
   push:
     branches:
-      - master
+      - LocalMain
 
 jobs:
   build_and_test:
@@ -24,4 +24,4 @@ jobs:
       run: dotnet build --configuration Release --no-restore
 
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test
